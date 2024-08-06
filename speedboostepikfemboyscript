@@ -1,0 +1,31 @@
+-- Services
+local Players = game:GetService("Players")
+local UserInputService = game:GetService("UserInputService")
+
+-- Player Variables
+local player = Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+-- Speed settings
+local normalSpeed = 16
+local boostedSpeed = 50
+
+-- Function to set speed
+local function setSpeed(speed)
+    if humanoid then
+        humanoid.WalkSpeed = speed
+    end
+end
+
+-- Key press events
+UserInputService.InputBegan:Connect(function(input, gameProcessed)
+    if not gameProcessed then
+        if input.KeyCode == Enum.KeyCode.E then
+            setSpeed(boostedSpeed)
+        elseif input.KeyCode == Enum.KeyCode.R then
+            setSpeed(normalSpeed)
+        end
+    end
+end)
+
